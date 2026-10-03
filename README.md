@@ -1,43 +1,23 @@
 # algorithms-python
 
-My personal collection of Python implementations for learning, practicing, and revisiting classic algorithms.
+A small collection of Python utilities for everyday development tasks.
 
 ## Features
 
-- Clear, readable Python implementations
-- Sorting, searching, graph, and dynamic programming algorithms
-- Notes on time and space complexity
-- Small examples for experimentation
-- Organized for quick reference and interview practice
+- Clean, dependency-free helpers
+- Type hints and docstrings
+- Simple command line entry points
+- Works on Python 3.9+
 
 ## Install
 
-```bash
-git clone https://github.com/YOUR_USERNAME/algorithms-python.git
-cd algorithms-python
-python -m venv .venv
-source .venv/bin/activate
-```
-
-On Windows, activate the environment with:
-
-```powershell
-.venv\Scripts\activate
-```
+    pip install -r requirements.txt
 
 ## Usage
 
-Run an algorithm file directly:
+    from utils import slugify, chunk
+    print(slugify('Hello World'))
 
-```bash
-python path/to/algorithm.py
-```
+## License
 
-You can also import implementations into your own scripts:
-
-```python
-from path.to.algorithm import algorithm_name
-
-result = algorithm_name(data)
-print(result)
-```
+MIT
