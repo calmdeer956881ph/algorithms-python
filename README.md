@@ -1,35 +1,43 @@
 # algorithms-python
 
-A personal collection of algorithms and data structures implemented in Python for learning, practice, and reference.
+My personal collection of Python implementations for learning, practicing, and revisiting classic algorithms.
 
 ## Features
 
 - Clear, readable Python implementations
-- Common sorting and searching algorithms
-- Data structures and graph algorithms
-- Time and space complexity notes
-- Tests for correctness and edge cases
+- Sorting, searching, graph, and dynamic programming algorithms
+- Notes on time and space complexity
+- Small examples for experimentation
+- Organized for quick reference and interview practice
 
 ## Install
 
 ```bash
-git clone https://github.com/<your-username>/algorithms-python.git
+git clone https://github.com/YOUR_USERNAME/algorithms-python.git
 cd algorithms-python
 python -m venv .venv
-source .venv/bin/activate  # Windows: .venv\Scripts\activate
-pip install -r requirements.txt
+source .venv/bin/activate
+```
+
+On Windows, activate the environment with:
+
+```powershell
+.venv\Scripts\activate
 ```
 
 ## Usage
 
-Run an implementation directly:
+Run an algorithm file directly:
 
 ```bash
-python algorithms/sorting/quick_sort.py
+python path/to/algorithm.py
 ```
 
-Run the test suite:
+You can also import implementations into your own scripts:
 
-```bash
-python -m pytest
+```python
+from path.to.algorithm import algorithm_name
+
+result = algorithm_name(data)
+print(result)
 ```
