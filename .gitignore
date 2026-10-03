@@ -1,15 +1,16 @@
-# Byte-compiled / optimized / DLL files
+# Byte-compiled files
 __pycache__/
 *.py[cod]
 *$py.class
 
-# C extensions
-*.so
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
 
-# Distribution / packaging
-.Python
+# Distribution and packaging
 build/
-develop-eggs/
 dist/
 downloads/
 eggs/
@@ -26,15 +27,7 @@ share/python-wheels/
 *.egg
 MANIFEST
 
-# PyInstaller
-*.manifest
-*.spec
-
-# Installer logs
-pip-log.txt
-pip-delete-this-directory.txt
-
-# Test, coverage, and analysis artifacts
+# Test and coverage artifacts
 .pytest_cache/
 .coverage
 .coverage.*
@@ -45,51 +38,26 @@ coverage.xml
 *.cover
 *.py.cover
 .hypothesis/
-.cache/
-nosetests.xml
 
 # Type checkers and linters
 .mypy_cache/
+.pyright/
+.ruff_cache/
+.pyre/
 .dmypy.json
 dmypy.json
-.pyre/
-.pytype/
-.ruff_cache/
-.pyright/
 
-# Virtual environments
-.env
-.env.*
-!.env.example
-.venv/
-venv/
-env/
-ENV/
-env.bak/
-venv.bak/
-
-# Jupyter Notebook
+# Jupyter
 .ipynb_checkpoints/
 
 # Documentation builds
 docs/_build/
 site/
 
-# Framework-specific files
-*.log
-local_settings.py
-db.sqlite3
-db.sqlite3-journal
-instance/
-.webassets-cache/
-.scrapy
-
-# Task queues and schedulers
-celerybeat-schedule
-celerybeat.pid
-
-# Interactive Python
-.python_history
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
 
 # IDEs and editors
 .idea/
@@ -97,28 +65,33 @@ celerybeat.pid
 *.swp
 *.swo
 *~
-.project
-.pydevproject
-.settings/
 
 # Operating system files
 .DS_Store
 Thumbs.db
-Desktop.ini
 
-# Temporary files
-*.tmp
-*.temp
-*.bak
+# Logs and local databases
+*.log
+*.sqlite
+*.sqlite3
 
-# Local tooling
+# Python tooling
+.python-version
 .pdm-python
 .pdm-build/
 __pypackages__/
 poetry.toml
 
-# Secrets and credentials
-*.pem
-*.key
-credentials.json
-secrets.json
+# Celery
+celerybeat-schedule
+celerybeat.pid
+
+# Django
+*.pot
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+
+# Flask
+instance/
+.webassets-cache
