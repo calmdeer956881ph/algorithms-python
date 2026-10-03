@@ -1,16 +1,11 @@
-"""Shared helper functions for algorithm implementations."""
+from typing import MutableSequence, Optional, Sequence, TypeVar
 
-from random import Random
-from time import perf_counter
-from typing import Callable, Iterable, List, MutableSequence, Optional, Tuple, TypeVar
 
 T = TypeVar("T")
-K = TypeVar("K")
-R = TypeVar("R")
 
 
 def swap(items: MutableSequence[T], first: int, second: int) -> None:
-    """Swap two elements of a mutable sequence in place.
+    """Swap two elements in a mutable sequence.
 
     Args:
         items: Sequence whose elements will be exchanged.
@@ -23,92 +18,63 @@ def swap(items: MutableSequence[T], first: int, second: int) -> None:
     items[first], items[second] = items[second], items[first]
 
 
-def is_sorted(
-    values: Iterable[T],
-    *,
-    key: Optional[Callable[[T], K]] = None,
-    reverse: bool = False,
-) -> bool:
-    """Return whether values are ordered according to the requested direction.
+def is_sorted(items: Sequence[T], *, reverse: bool = False) -> bool:
+    """Return whether a sequence is ordered monotonically.
 
     Args:
-        values: Values to inspect.
-        key: Optional function used to obtain each comparison key.
-        reverse: Check descending order when true; ascending order otherwise.
+        items: Sequence of mutually comparable values.
+        reverse: Check descending order when true; otherwise check ascending
+            order.
 
     Returns:
-        True for an ordered, empty, or single-item iterable; otherwise false.
+        True when every adjacent pair is in the requested order. Empty and
+        single-element sequences are considered sorted.
     """
-    iterator = iter(values)
-
-    try:
-        previous_value = next(iterator)
-    except StopIteration:
-        return True
-
-    previous_key = key(previous_value) if key is not None else previous_value
-
-    for value in iterator:
-        current_key = key(value) if key is not None else value
-        if reverse:
-            if previous_key < current_key:  # type: ignore[operator]
-                return False
-        elif previous_key > current_key:  # type: ignore[operator]
-            return False
-        previous_key = current_key
-
-    return True
+    if reverse:
+        return all(items[index] >= items[index + 1] for index in range(len(items) - 1))
+    return all(items[index] <= items[index + 1] for index in range(len(items) - 1))
 
 
-def random_int_list(
-    size: int,
-    minimum: int = 0,
-    maximum: int = 100,
-    *,
-    seed: Optional[int] = None,
-) -> List[int]:
-    """Create a reproducible list of uniformly distributed random integers.
+def binary_search(items: Sequence[T], target: T) -> Optional[int]:
+    """Find a target in an ascending sorted sequence using binary search.
 
     Args:
-        size: Number of integers to generate.
-        minimum: Smallest permitted value, inclusive.
-        maximum: Largest permitted value, inclusive.
-        seed: Optional seed for deterministic generation.
+        items: Ascending sequence of mutually comparable values.
+        target: Value to locate.
 
     Returns:
-        A newly allocated list containing the generated integers.
-
-    Raises:
-        ValueError: If size is negative or minimum exceeds maximum.
+        The index of the target, or None when it is absent. If duplicate
+        values exist, the index of the first occurrence is returned.
     """
-    if size < 0:
-        raise ValueError("size must be non-negative")
-    if minimum > maximum:
-        raise ValueError("minimum must not exceed maximum")
+    low = 0
+    high = len(items) - 1
+    result: Optional[int] = None
 
-    generator = Random(seed)
-    return [generator.randint(minimum, maximum) for _ in range(size)]
+    while low <= high:
+        middle = low + (high - low) // 2
+        if items[middle] < target:
+            low = middle + 1
+        elif items[middle] > target:
+            high = middle - 1
+        else:
+            result = middle
+            high = middle - 1
+
+    return result
 
 
-def measure_time(
-    function: Callable[..., R],
-    *args: object,
-    **kwargs: object,
-) -> Tuple[R, float]:
-    """Execute a callable and return its result with elapsed wall-clock time.
+def greatest_common_divisor(first: int, second: int) -> int:
+    """Compute the greatest common divisor of two integers.
 
     Args:
-        function: Callable to execute.
-        *args: Positional arguments forwarded to the callable.
-        **kwargs: Keyword arguments forwarded to the callable.
+        first: First integer.
+        second: Second integer.
 
     Returns:
-        A pair containing the callable's result and elapsed seconds.
-
-    Raises:
-        Exception: Propagates any exception raised by the callable.
+        The non-negative greatest common divisor. When both arguments are
+        zero, zero is returned.
     """
-    started_at = perf_counter()
-    result = function(*args, **kwargs)
-    elapsed = perf_counter() - started_at
-    return result, elapsed
+    first, second = abs(first), abs(second)
+    while second:
+        first, second = second, first % second
+    return first
